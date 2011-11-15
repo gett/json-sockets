@@ -4,7 +4,7 @@ a socket optimized for cross-domain use. it's easy to use:
 
 ``` js
 var sockets = require('cross-sockets');
-var socket = sockets.connect();
+var socket = sockets.connect('localhost:9999');
 
 socket.send({hello:'world'});
 socket.on('message', function(message) {

@@ -1,4 +1,6 @@
 var common = require('common');
+var router = require('router');
+var sockets = require('message-sockets');
 
 var TIMEOUT = 10*1000;
 var polls = {};
@@ -53,7 +55,18 @@ LongPoll.prototype._hanging = function() {
 };
 
 exports.listen = function(port, onsocket) {
-	var mania = require('crossmania').string();
+	var server;
+
+	if (typeof port === 'number') {
+		server = router.create();
+		server.listen(port);
+	} else {
+		server = port;
+	}
+
+	sockets.listen(server, onsocket);
+
+	var mania = require('crossmania').string(server);
 
 	mania.post('/sockets', function(request, data, respond) {
 		var id = common.uuid();
@@ -63,7 +76,10 @@ exports.listen = function(port, onsocket) {
 			delete polls[id];
 		});
 
-		onsocket(poll);
+		var socket = sockets.createSocket(poll, true);
+
+		socket.ping();
+		onsocket(socket);
 
 		respond(200, id);
 	});
@@ -76,7 +92,7 @@ exports.listen = function(port, onsocket) {
 		}
 
 		poll.onput(data);
-		respond(200);
+		respond(200, 'ok');
 	});
 	mania.get('/sockets/{id}', function(request, respond) {
 		var poll = polls[request.params.id];
@@ -88,6 +104,4 @@ exports.listen = function(port, onsocket) {
 
 		poll.onget(request, respond);
 	});
-
-	mania.listen(port);	
 };

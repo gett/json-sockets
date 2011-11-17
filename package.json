@@ -8,5 +8,5 @@
  "contributors": [
    "Mathias Buus Madsen <m@ge.tt>"
  ],
- "dependencies": {"common":">=0.2.0", "router":">=0.2.0", "message-sockets":">=0.2.0"}
+ "dependencies": {"common":">=0.2.0", "router":">=0.2.0", "message-sockets":">=0.2.0", "crossmania":">=0.1.0"}
 }

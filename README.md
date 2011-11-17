@@ -3,7 +3,7 @@
 a socket optimized for cross-domain use for the web and node. it's easy to use:
 
 ``` js
-var sockets = require('cross-sockets');
+var sockets = require('xsockets');
 
 sockets.listen(9999, function(socket) {
 	socket.on('message', function(message) {

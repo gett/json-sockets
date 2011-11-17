@@ -2,7 +2,7 @@
  "name":"xsockets",
  "description":"a socket optimized for cross-domain use for the web and node",
  "keywords": ["cross-domain", "cors", "socket", "sockets"],
- "version":"0.2.0",
+ "version":"0.2.1",
  "homepage" : "https://github.com/gett/xsockets",
  "author": "Ge.tt <hello@ge.tt>",
  "contributors": [

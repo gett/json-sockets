@@ -54,6 +54,9 @@ LongPoll.prototype._hanging = function() {
 	this._timeout = setTimeout(this._destroy, TIMEOUT);
 };
 
+exports.connect = function(host) {
+	return sockets.connect(host);	
+};
 exports.listen = function(port, onsocket) {
 	var server;
 

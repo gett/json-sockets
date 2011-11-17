@@ -1,0 +1,12 @@
+{
+ "name":"xsockets",
+ "description":"a socket optimized for cross-domain use for the web and node",
+ "keywords": ["cross-domain", "cors", "socket", "sockets"],
+ "version":"0.2.0",
+ "homepage" : "https://github.com/gett/xsockets",
+ "author": "Ge.tt <hello@ge.tt>",
+ "contributors": [
+   "Mathias Buus Madsen <m@ge.tt>"
+ ],
+ "dependencies": {"common":">=0.2.0", "router":">=0.2.0", "message-sockets":">=0.2.0"}
+}

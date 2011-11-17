@@ -1,11 +1,11 @@
-# xsockets
+# json-sockets
 
 a socket optimized for cross-domain use for the web and node. it's easy to use:
 
 ``` js
-var xsockets = require('xsockets');
+var sockets = require('json-sockets');
 
-xsockets.listen(9999, function(socket) {
+sockets.listen(9999, function(socket) {
 	socket.on('message', function(message) {
 		socket.send(message); // echo
 	});

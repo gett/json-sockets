@@ -19,10 +19,10 @@ socket.on('message', function(message) {
 });
 
 ```
-A main goal of json-sockets is to be simple, cross-domain, cross-browser and purely native js.
+A main goal of json-sockets is to be simple, cross-domain, cross-browser and purely native js.  
 To accomplish this the following transport methods are used:
 
-Web-sockets Chrome, Safari, Safari Mobile (fallbacks to CORS on connection timeout)
-CORS Firefox 3.5+ [Crome, Safari]
-Post-message + AJAX Internet Explorer 8+, Opera
-JSONP Internet Explorer 7-
+`WebSockets` Chrome, Safari, Safari Mobile (fallbacks to CORS on connection timeout)  
+`CORS` Firefox 3.5+ [Crome, Safari]  
+`Post-Message + AJAX` Internet Explorer 8+, Opera  
+`JSONP` Internet Explorer 7- and everybody else  

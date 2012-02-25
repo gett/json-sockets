@@ -10,32 +10,47 @@ var LongPoll = common.emitter(function() {
 	this.get = '';
 
 	this._respond = null;
-	this._hanging();
 	this._destroy = this.destroy.bind(this);
+	this._hanging();
 });
 
 LongPoll.prototype.send = function(message) {
 	message+='\n';
 
 	if (this._respond) {
-		this._hanging();
 		this._respond(200, message);
 		this._respond = null;
+		this._hanging();
 		return;
 	}
+
 	this.get += message;
 };
 LongPoll.prototype.destroy = function() {
+	if (this._respond) {
+		this._respond(404);
+	}
+
+	this._respond = null;
 	this.emit('close');
 };
 LongPoll.prototype.onget = function(request, respond) {
-	if (this.get) {
-		respond(200, this.get);
-		this.get = '';
-		return;
+	var get = this.get;
+
+	if (this._respond) {
+		this._respond(200);
+		this._respond = null;
 	}
-	request.on('close', this._destroy);
-	this._respond = respond;
+
+	if (get) {
+		this.get = '';
+		respond(200, get);
+	} else {
+		request.on('close', this._destroy);
+		this._respond = respond;
+	}
+
+	this._hanging();		
 };
 LongPoll.prototype.onput = function(data) {
 	var self = this;
@@ -47,10 +62,21 @@ LongPoll.prototype.onput = function(data) {
 		self.emit('message', message);
 	});
 };
-LongPoll.prototype._hanging = function() {
-	if (this._timeout) {
-		clearTimeout(this._timeout);
+LongPoll.prototype._clear = function() {
+	if (!this._timeout) {
+		return;
 	}
+
+	clearTimeout(this._timeout);
+	this._timeout = null;
+};
+LongPoll.prototype._hanging = function() {
+	this._clear();
+
+	if (this._respond) {
+		return;
+	}
+
 	this._timeout = setTimeout(this._destroy, TIMEOUT);
 };
 
@@ -75,7 +101,7 @@ exports.listen = function(port, onsocket) {
 		var id = common.uuid();
 		var poll = polls[id] = new LongPoll();
 
-		poll.on('close', function(argument) {
+		poll.once('close', function(argument) {
 			delete polls[id];
 		});
 

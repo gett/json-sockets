@@ -14,6 +14,7 @@ var LongPoll = common.emitter(function() {
 	this._hanging();
 });
 
+LongPoll.prototype.transport = 'long-poll';
 LongPoll.prototype.send = function(message) {
 	message+='\n';
 

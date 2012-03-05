@@ -32,6 +32,7 @@ LongPoll.prototype.destroy = function() {
 		this._respond(404);
 	}
 
+	this._clear();
 	this._respond = null;
 	this.emit('close');
 };

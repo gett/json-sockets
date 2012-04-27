@@ -26,3 +26,5 @@ To accomplish this the following transport methods are used:
 `CORS` Firefox 3.5+ [Crome, Safari]  
 `Post-Message + AJAX` Internet Explorer 8+, Opera  
 `JSONP` Internet Explorer 7- and everybody else  
+
+in the browser use the [browser.js](https://github.com/gett/json-sockets/blob/master/browser.js) and a common.js compiler
